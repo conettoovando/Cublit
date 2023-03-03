@@ -1,28 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from './screens/LoginScreen';
-import HomeScreen from './screens/HomeScreen';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
-const Stack = createNativeStackNavigator();
+import Login from "./screens/Login";
+import Signup from "./screens/Signup";
+import Home from "./screens/Home";
 
-export default function App() {
+const Stack = createStackNavigator();
+
+function ChatStack (){
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen options = {{headerShown:false}} name="Login" component={LoginScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+    <Stack.Navigator defaultScreenOptions={Login} screenOptions={{headerShown: false}}>
+      <Stack.Screen name ="Login" component={Login}/>
+      <Stack.Screen name ="Signup" component={Signup}/>
+      <Stack.Screen name ="Home" component={Home}/>
+    </Stack.Navigator>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+function RootNavigator() {
+  return (
+    <NavigationContainer>
+      <ChatStack/>
+    </NavigationContainer>
+  )
+}
+
+export default function App(){
+  return <RootNavigator/>
+}
