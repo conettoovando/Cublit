@@ -8,9 +8,9 @@ import Home from "./screens/Home";
 
 const Stack = createStackNavigator();
 
-function ChatStack (){
+function Navigations (){
   return (
-    <Stack.Navigator defaultScreenOptions={Login} screenOptions={{headerShown: false}}>
+    <Stack.Navigator defaultScreenOptions={Login} >
       <Stack.Screen name ="Login" component={Login}/>
       <Stack.Screen name ="Signup" component={Signup}/>
       <Stack.Screen name ="Home" component={Home}/>
@@ -21,7 +21,7 @@ function ChatStack (){
 function RootNavigator() {
   return (
     <NavigationContainer>
-      <ChatStack/>
+      <Navigations/>
     </NavigationContainer>
   )
 }

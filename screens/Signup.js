@@ -1,20 +1,36 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { StyleSheet, Text, View, Button, TextInput, Image, SafeAreaView, TouchableOpacity, StatusBar, Alert, KeyboardAvoidingView} from "react-native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../database/firebase";
+import { addDoc, collection } from "firebase/firestore";
+import {database} from "../database/firebase";
 
 export default function Signup ({ navigation }){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confpassword, setConfPassword] = useState("");
+    const [username, setUsername] = useState("");
+    
 
     const onHandleSignUp = () => {
-        if (email !== "" && password !== ""){
-            createUserWithEmailAndPassword(auth, email, password)
-            .then(userCredentials => {
-                const user = userCredentials.user;
-                Alert.alert("sussefully user created", user.email)
-            })
-            .catch((err) => Alert.alert("Error", err.message));
+        if (email !== "" && password !== "" && username !== "" && confpassword !== ""){
+            if (password !== confpassword){
+                Alert.alert("Error", "Password and Confirm Password do not match");
+                return;
+            }else{
+                createUserWithEmailAndPassword(auth, email, password)
+                .then(async (userCredentials) => {
+                    const user = userCredentials.user;
+                    const userRef = collection(database, "users");
+                    await addDoc(userRef, {
+                        uid: user.uid,
+                        email: user.email,
+                        username: username,
+                    });
+                    return;
+                })
+                .catch((err) => Alert.alert("Error", err.message));
+            }
         }
     };
 
@@ -28,10 +44,21 @@ export default function Signup ({ navigation }){
                     value={email}
                     onChangeText={text => setEmail(text)}
                 />
+                <TextInput placeholder="User Name" 
+                    style={styles.inputText}
+                    value={username}
+                    onChangeText={text => setUsername(text)}
+                />
                 <TextInput placeholder="password" 
                     style={styles.inputText}
                     value={password}
                     onChangeText={text => setPassword(text)}
+                    secureTextEntry
+                />
+                <TextInput placeholder="Confirm Password" 
+                    style={styles.inputText}
+                    value={confpassword}
+                    onChangeText={text => setConfPassword(text)}
                     secureTextEntry
                 />
                 <StatusBar style="auto" />
@@ -95,5 +122,5 @@ const styles = StyleSheet.create({
         color: "black",
         fontWeight: '700',
         fontSize: 16,
-    }
+    },
 })

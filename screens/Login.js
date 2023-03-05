@@ -1,16 +1,18 @@
 import React, {useEffect, useState} from "react";
 import { StyleSheet, Text, View, Button, TextInput, Image, SafeAreaView, TouchableOpacity, StatusBar, Alert, KeyboardAvoidingView} from "react-native";
+import { StackActions } from "@react-navigation/native";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../database/firebase";
 
 export default function Login ({ navigation }){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
+    
     useEffect(() =>{
         auth.onAuthStateChanged(user =>{
             if (user){
-                navigation.navigate("Home")
+                navigation.dispatch(StackActions.popToTop());
+                navigation.dispatch(StackActions.replace('Home'));
             }
         })
     })
@@ -19,8 +21,7 @@ export default function Login ({ navigation }){
         if (email !== "" && password !== ""){
             signInWithEmailAndPassword(auth, email, password)
             .then(() => console.log("Login success"))
-            .catch((err) => Alert.alert("Login error", err.message),
-            console.log("error"));
+            .catch((err) => Alert.alert("Login error", err.message))
         }
     };
 
