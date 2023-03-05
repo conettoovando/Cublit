@@ -1,3 +1,4 @@
+import { StackActions } from "@react-navigation/native";
 import React, {useState, useEffect} from "react";
 import { StyleSheet, Text, View, Button, TextInput, Image, SafeAreaView, TouchableOpacity, StatusBar, Alert, KeyboardAvoidingView} from "react-native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -27,9 +28,9 @@ export default function Signup ({ navigation }){
                         email: user.email,
                         username: username,
                     });
-                    return;
                 })
                 .catch((err) => Alert.alert("Error", err.message));
+                navigation.dispatch(StackActions.popToTop());
             }
         }
     };

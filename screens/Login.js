@@ -11,7 +11,6 @@ export default function Login ({ navigation }){
     useEffect(() =>{
         auth.onAuthStateChanged(user =>{
             if (user){
-                navigation.dispatch(StackActions.popToTop());
                 navigation.dispatch(StackActions.replace('Home'));
             }
         })

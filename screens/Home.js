@@ -1,4 +1,3 @@
-import { StackActions } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { auth } from "../database/firebase";
@@ -7,7 +6,6 @@ export default function HomeScreen({navigation}){
     const onHandleLogout = () => {
         auth.signOut()
         .then(() => {
-            navigation.dispatch(StackActions.popToTop())
             navigation.replace("Login")
         }).catch(error => alert(error.message))
     }
