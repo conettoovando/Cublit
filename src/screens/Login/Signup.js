@@ -2,11 +2,14 @@ import { StackActions } from "@react-navigation/native";
 import React, {useState, useEffect} from "react";
 import { StyleSheet, Text, View, Button, TextInput, Image, SafeAreaView, TouchableOpacity, StatusBar, Alert, KeyboardAvoidingView} from "react-native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../database/firebase";
+import { auth, database } from "../../Data/Firebase";
 import { addDoc, collection } from "firebase/firestore";
-import {database} from "../database/firebase";
+import { useNavigation } from "@react-navigation/native";
 
-export default function Signup ({ navigation }){
+
+export default function Signup (){
+    const navigation = useNavigation();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confpassword, setConfPassword] = useState("");

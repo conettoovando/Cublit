@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { auth } from "../database/firebase";
+import { auth } from "../../Data/Firebase";
 
 export default function HomeScreen({navigation}){
     const onHandleLogout = () => {

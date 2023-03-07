@@ -1,30 +1,11 @@
-import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import Login from "./screens/Login";
-import Signup from "./screens/Signup";
-import Home from "./screens/Home";
+import { StatusBar } from 'expo-status-bar';
+import Navigation from './src/navigation/Navigation';
+import { StyleSheet } from 'react-native';
 
-const Stack = createStackNavigator();
-
-function Navigations (){
+export default function App() {
   return (
-    <Stack.Navigator initialRouteName={Login} >
-      <Stack.Screen name ="Login" component={Login}/>
-      <Stack.Screen name ="Signup" component={Signup}/>
-      <Stack.Screen name ="Home" component={Home}/>
-    </Stack.Navigator>
-  )
+    <Navigation/>
+  );
 }
 
-function RootNavigator() {
-  return (
-    <NavigationContainer>
-      <Navigations/>
-    </NavigationContainer>
-  )
-}
 
-export default function App(){
-  return <RootNavigator/>
-}
