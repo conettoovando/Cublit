@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Profiler } from "react";
 import { Text, TouchableOpacity} from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
@@ -10,7 +10,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 //HomeScreen
 import HomeScreen from "../screens/HomeScreen/HomeScreen";
-import Settings from "../screens/HomeScreen/settings";
+import Profile from "../screens/HomeScreen/Profile";
 //Login
 import Login from "../screens/Login/Login";
 import Signup from "../screens/Login/Signup";
@@ -35,6 +35,7 @@ function MyTabs() {
             initialRouteName="Home"
             screenOptions={{
                 tabBarActiveTintColor: "gray",
+                tabBarHideOnKeyboard: true,
             }}
         >
             <Tab.Screen name="Home" component={HomeScreen} 
@@ -49,18 +50,18 @@ function MyTabs() {
                     ),
                 }}
             />
-            <Tab.Screen name="Settings" component={Settings} 
+            <Tab.Screen name="Profile" component={Profile} 
                 options={{
                     headerTitle: () => (
                         <TouchableOpacity onPress = {() => alert("Hello world")}>
-                            <Text style={{fontSize: 20, fontWeight: 'bold'}}>Settings</Text>
+                            <Text style={{fontSize: 20, fontWeight: 'bold'}}>Profile</Text>
                         </TouchableOpacity>
                     ),
                     headerRight: () => (
                         <AntDesign name="search1" size={24} color="gray" style={{marginRight: 10}} onPress={() => alert('This is a button!')}/>
                     ),
                     tabBarIcon: ({ color, size }) => (
-                        <AntDesign name="setting" size={24} color="gray" />
+                        <AntDesign name="profile" size={24} color="gray" />
                     ),
                 }}
                 

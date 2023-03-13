@@ -3,19 +3,14 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { auth } from "../../Data/Firebase";
 
 export default function HomeScreen({navigation}){
-    const onHandleLogout = () => {
-        auth.signOut()
-        .then(() => {
-            navigation.replace("Login")
-        }).catch(error => alert(error.message))
-    }
+    
 
     return (
         <View style={styles.container}>
             <Text>Email: {auth.currentUser?.email}</Text>
+            <Text>Email: {auth.currentUser?.displayName}</Text>
             <TouchableOpacity
                 style = {styles.button}
-                onPress= {onHandleLogout}
             >
                 <Text style={styles.buttonText}>Sign out</Text>
             </TouchableOpacity>

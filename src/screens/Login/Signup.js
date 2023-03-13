@@ -1,19 +1,19 @@
 import { StackActions } from "@react-navigation/native";
 import React, {useState, useEffect} from "react";
 import { StyleSheet, Text, View, Button, TextInput, Image, SafeAreaView, TouchableOpacity, StatusBar, Alert, KeyboardAvoidingView} from "react-native";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, database } from "../../Data/Firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
-
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function Signup (){
     const navigation = useNavigation();
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confpassword, setConfPassword] = useState("");
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("test@test.com");
+    const [password, setPassword] = useState("password");
+    const [confpassword, setConfPassword] = useState("password");
+    const [username, setUsername] = useState("Test User");
     
 
     const onHandleSignUp = () => {
@@ -22,8 +22,11 @@ export default function Signup (){
                 Alert.alert("Error", "Password and Confirm Password do not match");
                 return;
             }else{
-                createUserWithEmailAndPassword(auth, email, password)
-                .then(async (userCredentials) => {
+                createUserWithEmailAndPassword(auth, email, password).then(
+                    async (userCredentials) => {
+                    await updateProfile(userCredentials.user, {
+                        displayName: username,
+                    });
                     const user = userCredentials.user;
                     const userRef = collection(database, "users");
                     await addDoc(userRef, {
@@ -39,6 +42,7 @@ export default function Signup (){
     };
 
     return (
+        <KeyboardAwareScrollView>
         <KeyboardAvoidingView style={styles.container}>        
             <View style={styles.inputcontainer}>
                 <Text style={styles.Title}>Cublit</Text>
@@ -73,7 +77,7 @@ export default function Signup (){
                     <Text style = {styles.buttonText} >Register</Text>
                 </TouchableOpacity>
             </View>
-        </KeyboardAvoidingView>
+        </KeyboardAvoidingView></KeyboardAwareScrollView>
     )
 
 }

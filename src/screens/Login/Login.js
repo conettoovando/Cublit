@@ -8,9 +8,9 @@ import { useNavigation } from "@react-navigation/native";
 export default function Login (){
     const navigation = useNavigation();
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    
+    const [email, setEmail] = useState("test@test.com");
+    const [password, setPassword] = useState("password");
+
     useEffect(() =>{
         auth.onAuthStateChanged(user =>{
             if (user){
