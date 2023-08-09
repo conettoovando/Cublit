@@ -1,0 +1,3 @@
+Ultima Actualizacion - Pendiente
+15-03 - Solucionar error input fecha nacimiento
+21-03 - Arreglar inputs, conectar con BD, guardar informacion, arreglar Picker
